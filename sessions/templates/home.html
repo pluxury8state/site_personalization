@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Угадай число{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>Игра "Угадай число"</h1>
+            {% if show %}
+                <form action="{% url 'show' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <br>
+                    <input type="submit" value="Подтвердить число"/>
+                </form>
+            {% endif %}
+            {% if side %}
+                {% if stat != "a" and stat != None %}
+                    <h1>Статтстика угадывания вашего числа:</h1>
+                    <p>Ваше число угадали с {{stat}} попытки</p>
+                {% elif stat == "a" %}
+                    <h2>Введите число, а второй игрок будет его угадывать</h2>
+                {% else %}
+                    <h2>Вы ввели число, а второй игрок попытвется его угадать</h2>
+                {% endif %}
+            {% else %}
+                {{stat}}
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
